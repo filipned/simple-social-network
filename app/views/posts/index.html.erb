@@ -1,0 +1,17 @@
+<h1>Welcome</h1>
+<h2>Latest posts</h2>
+<h3>USer : <%= @user %></h3>
+<% if !@posts.blank? %>
+	<% for item in @posts %>
+		<div class="well">
+		
+			<h3> <%= item.title %></h3>
+			<p><%= item.body %> </p>
+			<h5>Creator: <%= item.user[:username]%></h5>
+
+			<%= link_to "Read more", post_path(item), :class => 'btn btn-default' %>
+		</div>
+	<% end %>
+<% else %>
+	
+<% end %>

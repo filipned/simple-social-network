@@ -1,0 +1,10 @@
+<% if !@post.comments.blank? %>
+	<% for comment in @post.comments %>
+		<h3> <%= comment.username %></h3>
+		<p> <%= comment.body %></p>
+<!-- pogledati link_to -->
+		<%= link_to "Delete", [comment.post, comment], method: :delete %>
+	<% end %>
+<% else %>
+	
+<% end %>

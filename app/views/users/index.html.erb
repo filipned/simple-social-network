@@ -1,0 +1,40 @@
+<h1>Users</h1>
+
+
+<% if !@friends.blank? %>
+  <% for fr in @friends %>
+    <% if fr[:left_user_id] == @current_user[:id] %>
+      <h3><%= fr.right_user[:username] %></h3>
+    <% end %>
+
+    <% if fr[:right_user_id] == @current_user[:id] %>
+      <h3><%= fr.left_user[:username] %> (already friend)</h3>
+    <% end %>
+
+    <%= link_to "Delete friend", friendship_destroy_path(:right_user_id => fr[:right_user_id], :left_user_id => fr[:left_user_id]), method: :delete %>
+
+  <% end %>
+<% end %>
+
+<% if !@pendingAnswers.blank? %>
+  <% for frship in @pendingAnswers%>
+    <h3><%= frship.left_user[:username] %></h3>
+    <%= link_to "Accept", friendship_accept_path(:left_user_id => frship[:left_user_id]), method: :patch %>
+    <%= link_to "Decline", friendship_destroy_path(:left_user_id => frship[:left_user_id], :right_user_id => frship[:right_user_id]), method: :delete %>
+  <% end %>
+<% end %>
+
+
+<% if !@pendingRequests.blank? %>
+  <% for user in @pendingRequests %>
+    <h3><%= user.right_user[:username] %></h3>
+    <h5>Request has been sent to this user.</h5>
+  <% end %>
+<% end %>
+
+<% if !@users.blank? %>
+	<% for user in @users %>
+      <h3><%= user[:username] %></h3>
+        <%= link_to "Add Friend", friendship_create_path(:right_user_id => user), :method => :post %>
+  <% end %>
+<% end %>

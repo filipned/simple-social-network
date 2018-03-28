@@ -1,0 +1,39 @@
+<h1>Sent requests</h1>
+
+<% if !@pendingRequests.blank? %>
+  <% for user in @pendingRequests %>
+    <h3><%= user.right_user[:username] %></h3>
+    <h5>Request has been sent to this user.</h5>
+  <% end %>
+<% end %>
+
+<h1>Friend requests</h1>
+
+<% if !@pendingAnswers.blank? %>
+  <% for frship in @pendingAnswers%>
+    <h3><%= frship.left_user[:username] %></h3>
+    <%= link_to "Accept", friendship_accept_path(:left_user_id => frship[:left_user_id]), method: :patch %>
+    <%= link_to "Decline", friendship_destroy_path(:left_user_id => frship[:left_user_id], :right_user_id => frship[:right_user_id]), method: :delete %>
+  <% end %>
+<% end %>
+
+<h1>Friends</h1>
+
+<% if !@friends.blank? %>
+  <% for fr in @friends %>
+    <% if fr[:left_user_id] == @current_user[:id] %>
+      <h3><%= fr.right_user[:username] %></h3>
+    <% end %>
+
+    <% if fr[:right_user_id] == @current_user[:id] %>
+      <h3><%= fr.left_user[:username] %></h3>
+    <% end %>
+
+    <%= link_to "Delete friend", friendship_destroy_path(:right_user_id => fr[:right_user_id], :left_user_id => fr[:left_user_id]), method: :delete %>
+
+  <% end %>
+<% end %>
+
+
+
+
