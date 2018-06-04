@@ -1,15 +1,11 @@
 class PostsController < ApplicationController
 	
 	before_action :auth
-	
-# root GET    /                         posts#index
 
 	def index
 		@user = session[:user]
 		@posts = Post.all
 	end
-
-# post GET    /posts/:id(.:format)      posts#show
 
 	def show
 		@post = Post.find(params[:id])

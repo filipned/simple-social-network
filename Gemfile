@@ -10,9 +10,9 @@ end
 gem 'rails', '~> 5.0.6'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
-gem 'pg', '~>0.18'
+gem 'pg', '~>0.18.0'
 
-# Use Puma as the app server
+# Use Puma as the Blog server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -56,3 +56,7 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem "grape", "~> 1.0"
+
+gem "grape-entity", "~> 0.7.1"

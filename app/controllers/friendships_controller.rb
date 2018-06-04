@@ -6,7 +6,6 @@
     @pendingRequests = @current_user.left_user_associations.reload.where(:state => "PENDING").all
     @pendingAnswers = @current_user.right_user_associations.reload.where(:state => "PENDING").all
     @friends = Friendship.stateFriends.where("left_user_id = ? OR right_user_id = ?", @current_user[:id], @current_user[:id])
-    # @friendships = User.find_by_sql('SELECT "users".* FROM "users" INNER JOIN "friendships" ON "users"."id" = "friendships"."right_user_id" WHERE "friendships"."left_user_id" = ' + @current_user[:id].to_s + ' OR "friendships"."right_user_id" = ' + @current_user[:id].to_s)
   end
 
   def create
