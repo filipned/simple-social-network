@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
 	has_many :right_associations, :through => :right_user_associations, :source => :left_user
 
+	has_one :token
 
 
   def self.isFriends(user1, user2)

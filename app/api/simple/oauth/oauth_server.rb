@@ -2,6 +2,12 @@ module Simple
   module OAuth
     class OAuthServer < Grape::API
 
+      helpers {
+        def generate_token
+          SecureRandom.base64(32)
+        end
+      }
+
       # Output: Authorization code or access token, depending on response_type param
       resources :authorize do
         desc 'Starts oauth authorization flow'
@@ -34,6 +40,9 @@ module Simple
           requires :redirect_uri, type: String, desc: 'uri of client application(endpoint where response goes)'
         end
         post do
+          if(params[:grant_type] == 'access_token')
+            generate_token
+          end
         #   1. Authorize validity of authorization code
         #   2. Send back application/json e.g.
         #       {
