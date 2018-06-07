@@ -1,0 +1,16 @@
+module Simple
+  module OAuth
+    class OAuthResServer < Grape::API
+    #   it is protected with Authorization: Bearer {Access token}
+      resources :api do
+        get do
+
+        end
+      end
+    end
+  end
+end
+
+# 1. Ask OAuth server if access token is valid
+# 2. If valid, check the scope of request end compare it with scopes
+#     correlated to this access token

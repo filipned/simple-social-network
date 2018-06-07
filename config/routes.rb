@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  mount Simple::PostApi => '/'
+  mount Simple::API => '/'
 
 
   #ROOT<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
