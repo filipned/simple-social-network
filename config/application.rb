@@ -13,5 +13,6 @@ module Blog
     # -- all .rb files in that directory are automatically loaded.
     config.paths.add File.join('Blog', 'api'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('Blog', 'api', '*')]
+    config.autoload_paths += Dir[Rails.root.join('app', 'operations', '*')]
   end
 end

@@ -1,18 +1,7 @@
 module Simple
   class PostApi < Grape::API
-    prefix :api
-    version :v1
-    format :json
-
-    helpers {
-      def authenticate!
-
-      end
-    }
-    #razlika izmedju namespace i resources?
 
     desc 'Get all posts.'
-    # /api/v1/posts
     resources :posts do
       desc 'Get all posts.'
       get do
@@ -21,7 +10,6 @@ module Simple
       end
 
       desc 'Get post by id.'
-      # /api/v1/posts/:id
       get ':id' do
         Post.first(params[:id])
       end
@@ -34,7 +22,6 @@ module Simple
       end
 
       desc 'Create new post..'
-      # /api/v1/posts
       post do
         @post = Post.new(params)
         # @user = User.where("username = ?", session[:user]).first
