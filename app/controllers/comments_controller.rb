@@ -30,7 +30,6 @@ class CommentsController < ApplicationController
 		else
 			redirect_to posts_path
 		end
-
 	end
 
 	private def comment_params

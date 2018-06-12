@@ -1,9 +1,5 @@
 module Simple
   class UserApi < API
-    # TODO Implement presenting responses using Grape entities
-    before do
-
-    end
 
     desc 'Log in.'
     params do
@@ -11,13 +7,14 @@ module Simple
       requires :password, type: String
     end
     post :log_in do
-      LogIn.call(params[:username], params[:password])
+      error! 'Already signed in.', 208 if authorized?
+      UsersOperations::LogIn.call(params[:username], params[:password])
     end
 
     desc 'Log out.'
-    delete '/log_out' do
+    delete :log_out do
       error! 'Access denied.', 401 unless authorized?
-      LogOut.call(authorization_token)
+      UsersOperations::LogOut.call(authorization_token)
     end
 
 
@@ -25,7 +22,7 @@ module Simple
       desc 'Get all users.'
       get do
         error! 'Access denied.', 401 unless authorized?
-        ListUsers.call
+        UsersOperations::ListUsers.call(current_user)
       end
 
       desc 'Register new user.'
@@ -34,7 +31,7 @@ module Simple
         requires :password, type: String
       end
       post do
-        CreateUser.call(params[:username], params[:password])
+        UsersOperations::CreateUser.call(params[:username], params[:password])
       end
     end
   end

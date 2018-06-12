@@ -1,4 +1,4 @@
-module Simple
+module UsersOperations
   class CreateUser < Operation
 
     def initialize(username, password)
@@ -7,14 +7,10 @@ module Simple
     end
 
     def call
-      user = User.new(user_params)
-      error! 'Already exists.', 208 if User.exists?(username: @username)
-      error! 'Problem saving.', 500 unless user.save
-    end
-
-    private
-    def user_params
-      params.require(:user).permit(:username, :password)
+      user = User.new(username: @username, password: @password)
+      raise OperationException('User already exists') if User.exists?(username: @username)
+      user.save!
+      user
     end
   end
 end

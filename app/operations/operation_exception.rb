@@ -1,0 +1,3 @@
+class OperationException < StandardError
+
+end

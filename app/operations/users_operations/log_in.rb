@@ -1,4 +1,4 @@
-module Simple
+module UsersOperations
   class LogIn < Operation
 
     def initialize(username, password)
@@ -7,13 +7,15 @@ module Simple
     end
 
     def call
-      error! 'Already signed in.', 208 if authorized?
-      @user = User.find_by("username = ? AND password = ?", params[:username], params[:password])
-      error! 'Wrong credentials!', 400 if @user.nil?
-
+      user = User.find_by!("username = ? AND password = ?", @username, @password)
       token = generate_token
-      @user.create_token(token: token)
+      raise ActiveRecord::RecordNotSaved unless user.create_token(token: token)
       {access_token: token}
+    end
+
+    private
+    def generate_token
+      SecureRandom.base64(32)
     end
   end
 end

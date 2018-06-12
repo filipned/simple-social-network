@@ -1,4 +1,4 @@
-module Simple
+module UsersOperations
   class LogOut < Operation
 
     def initialize(token)
@@ -6,10 +6,10 @@ module Simple
     end
 
     def call
-      @token = Token.find_by!(token: authorization_token)
-      error! 'Server error.', 500 unless @token
-      error! 'Deletion unsuccessful', 500 unless @token.destroy
-      { token: @token[:token] }
+      token = Token.find_by(token: @token)
+      raise OperationException unless token
+      token.destroy!
+      { token: @token }
     end
   end
 end
